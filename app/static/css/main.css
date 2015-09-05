@@ -1,0 +1,35 @@
+body{
+    background: #eee;
+}
+.navbar{
+    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.25);
+	-moz-box-shadow: 0 5px 15px rgba(0,0,0,.25);
+	box-shadow: 0 5px 15px rgba(0,0,0,.25);
+}
+.jumbotron{
+    -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #fff;
+	-webkit-box-shadow: 0 5px 15px rgba(0,0,0,.25);
+	-moz-box-shadow: 0 5px 15px rgba(0,0,0,.25);
+	box-shadow: 0 5px 15px rgba(0,0,0,.25);
+}
+@media screen and (min-width: 768px) {
+    .jumbotron .author-info{
+    text-align: right;
+    }
+}
+
+.jumbotron .author-info .author{
+    margin:0 8px 0 4px;
+}
+.author-info>span{
+    line-height: 61px;
+}
+.posttitle>h4{
+    float: left;
+}
+.form-inint{
+    margin-bottom: 50px;
+}
