@@ -14,11 +14,11 @@
     <!-- Bootstrap -->
         <link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap',local=True)}}" rel="stylesheet">
         <link href="{{url_for('static',filename='css/flat-ui.min.css')}}" rel="stylesheet">
+        <link href="{{url_for('static',filename='css/animate.min.css')}}" rel="stylesheet">
         <link rel="shortcut icon" href="{{url_for('static',filename='img/favicon.ico')}}">
         <link href="{{url_for('static',filename='css/main.css')}}" rel="stylesheet">
        <style>
       body {
-        min-height: 2000px;
         padding-top: 70px;
       }
     </style>
@@ -36,6 +36,10 @@
     <script src="{{bootstrap_find_resource('jquery.js', cdn='jquery',local=True)}}"></script>
     <script src="{{bootstrap_find_resource('js/bootstrap.js', cdn='bootstrap',local=True)}}"></script>
     <script src="{{url_for('static',filename='js/flat-ui.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/wow.min.js')}}"></script>
+<!--    <script src="{{url_for('static',filename='js/scrollReveal.min.js')}}"></script>-->
+    <script src="{{url_for('static',filename='js/app4animate.js')}}"></script>
+{{ pagedown.include_pagedown() }}
     {%- endblock scripts %}
     {%- endblock body %}
   </body>

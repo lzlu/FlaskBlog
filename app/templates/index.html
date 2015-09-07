@@ -1,13 +1,22 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
-
+{% import "_macros.html" as macros %}
 {% block title %}Flasky{% endblock %}
 
 {% block page_content %}
-<div class="form-inint">
+
     {% if current_user.can(Permission.WRITE_ARTICLES) %}
+<div class="form-inint flask-login" style="padding: 10px">
     {{ wtf.quick_form(form) }}
+    </div>
     {% endif %}
-</div>
+
 {% include '_posts.html' %}
+{% if pagination %}
+<div class="container" style="text-align: center">
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.index') }}
+</div>
+    </div>
+{% endif %}
 {% endblock %}

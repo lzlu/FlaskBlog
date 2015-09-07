@@ -3,19 +3,19 @@
 {% block title %}Flasky{% endblock %}
 
 {% block navbar %}
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-default navbar-fixed-top animated bounceInDown" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
           </button>
-          <a class="navbar-brand" href="#">Don't Panic</a>
+          <a class="navbar-brand animated" href="#" id="navbar-brand">Don't Panic</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/">About</a></li>
-            <li><a href="/">Contact</a></li>
+            <li class="active"><a href="/">首页</a></li>
+            <li><a href="/">关于我</a></li>
+            <li><a href="/">联系我</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
          {% if current_user.is_authenticated() %}
