@@ -3,7 +3,7 @@
 {% block title %}Flasky{% endblock %}
 
 {% block navbar %}
-    <div class="navbar navbar-default navbar-fixed-top animated bounceInDown" role="navigation">
+    <div class="navbar navbar-default  animated bounceInDown" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -14,7 +14,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="/">首页</a></li>
-            <li><a href="/">关于我</a></li>
+            <li><a href="{{ url_for('.sortout') }}">归类</a></li>
             <li><a href="/">联系我</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">

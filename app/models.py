@@ -110,6 +110,12 @@ login_manager.anonymous_user = AnonymousUser
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# 关联表
+Post_Tages = db.Table(
+    'Post_Tages',
+    db.Column('Post_id', db.Integer, db.ForeignKey('posts.id')),
+    db.Column('Tage_id', db.Integer, db.ForeignKey('tags.id')),
+)
 
 # 文章类
 class Post(db.Model):
@@ -121,6 +127,11 @@ class Post(db.Model):
     last_modified = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     body_html = db.Column(db.Text)
+    body_slug = db.Column(db.String(200))
+    tags = db.relationship('Tags',
+                           secondary=Post_Tages,
+                           backref=db.backref('posts', lazy='dynamic'),
+                           lazy='dynamic')
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
@@ -128,15 +139,18 @@ class Post(db.Model):
                         'i', 'li', 'ol', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'p']
         target.body_html = bleach.linkify(bleach.clean(markdown(value, output_format='html'),
                                                        tags=alowed_tages, strip=True))
+        target.body_slug = target.body_html[:200]
+
     @staticmethod
     def generate_fake(count=100):
         from random import seed, randint
         import forgery_py
+
         seed()
         user_count = User.query.count()
         for i in range(count):
             time = forgery_py.date.date(True)
-            u = User.query.offset(randint(0, user_count-1)).first()
+            u = User.query.offset(randint(0, user_count - 1)).first()
             p = Post(body=forgery_py.lorem_ipsum.sentences(randint(1, 3)),
                      timestamp=time,
                      last_modified=time,
@@ -144,4 +158,51 @@ class Post(db.Model):
                      author=u)
             db.session.add(p)
             db.session.commit()
+
+    def addTag(self, tags):
+        if type(tags) != type(set()):
+            tags = tags.split(",")
+        for tag in tags:
+            now_Tag = Tags.query.filter_by(tag_name=tag).first()
+
+            if not now_Tag:
+                self.tags.append(Tags(tag_name=tag, tag_count=1))
+            else:
+                now_Tag.tag_count += 1
+                self.tags.append(now_Tag)
+
+
+    def updateTag(self, data):
+        old = self.getTagByArry()
+        new_tags = data.split(",")
+        del_tags = {item for item in old if item not in new_tags}
+        add_tags = {item for item in new_tags if item not in old}
+        print("old=%s,new_tags=%s,del_tage=%s,add_tags=%s" % (old, new_tags, del_tags, add_tags))
+        if del_tags is not None:
+            for del_tag in del_tags:
+                remove_tag = Tags.query.filter_by(tag_name=del_tag).first()
+                remove_tag.tag_count -= 1
+                print("remove_tags=%s" % remove_tag.tag_name)
+                if remove_tag is not None:
+                    self.tags.remove(remove_tag)
+        if add_tags is not None:
+            self.addTag(add_tags)
+
+
+    def getTagByArry(self):
+        tags = self.tags.all()
+        return tuple(tags[i].tag_name for i in range(len(tags)))
+
+    def getTagByString(self):
+        tags = self.tags.all()
+        return ",".join(tags[i].tag_name for i in range(len(tags)))
+
+
 db.event.listen(Post.body, 'set', Post.on_changed_body)
+
+
+class Tags(db.Model):
+    __tablename__ = 'tags'
+    id = db.Column(db.Integer, primary_key=True)
+    tag_name = db.Column(db.String(64), index=True)
+    tag_count = db.Column(db.Integer, default=0)

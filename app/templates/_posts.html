@@ -13,13 +13,16 @@
     </div>
     </div>
         <div class="clearfix col-md-12">
-    <p>  {% if post.body_html %}
-        {{ post.body_html | safe}}
+    <p>  {% if post.body_slug %}
+        {{ post.body_slug | safe}}
         {% else %}
         {{ post.body }}
         {% endif %}
         </p>
         </div>
+    <div class="col-md-6" style="margin-bottom: 10px">
+         <a href="{{ url_for('.post',id=post.id)}}" class="btn btn-success btn-lg btn-block">查看全文</a>
+    </div>
      {% if current_user.is_authenticated()%}
     <div class="col-md-12">
         <div class="col-md-3">

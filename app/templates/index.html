@@ -4,12 +4,11 @@
 {% block title %}Flasky{% endblock %}
 
 {% block page_content %}
-
-    {% if current_user.can(Permission.WRITE_ARTICLES) %}
-<div class="form-inint flask-login" style="padding: 10px">
-    {{ wtf.quick_form(form) }}
-    </div>
-    {% endif %}
+{% if current_user.can(Permission.WRITE_ARTICLES) %}
+<div class="container" style="margin: 20px 0">
+    <a href="{{ url_for('.add_post')}}" class="btn btn-danger btn-lg btn-block">发布新的</a>
+</div>
+{% endif %}
 
 {% include '_posts.html' %}
 {% if pagination %}

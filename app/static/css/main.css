@@ -31,6 +31,7 @@ body{
 @media screen and (min-width: 768px) {
     .jumbotron .author-info{
     text-align: right;
+        font-size: 1em;
     }
 }
 

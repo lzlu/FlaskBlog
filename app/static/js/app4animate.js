@@ -27,3 +27,6 @@ function addremove(selector,animate){
         $(this).removeClass(animate)
     })
     }
+$(function(){
+        $('input.tagsinput').tagsinput();
+})

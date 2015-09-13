@@ -17,11 +17,6 @@
         <link href="{{url_for('static',filename='css/animate.min.css')}}" rel="stylesheet">
         <link rel="shortcut icon" href="{{url_for('static',filename='img/favicon.ico')}}">
         <link href="{{url_for('static',filename='css/main.css')}}" rel="stylesheet">
-       <style>
-      body {
-        padding-top: 70px;
-      }
-    </style>
     {%- endblock styles %}
     {%- endblock head %}
   </head>
@@ -39,6 +34,9 @@
     <script src="{{url_for('static',filename='js/wow.min.js')}}"></script>
 <!--    <script src="{{url_for('static',filename='js/scrollReveal.min.js')}}"></script>-->
     <script src="{{url_for('static',filename='js/app4animate.js')}}"></script>
+    <script src="{{url_for('static',filename='js/Markdown.Converter.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/Markdown.Sanitizer.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/moment-with-locales.min.js')}}"></script>
 {{ pagedown.include_pagedown() }}
     {%- endblock scripts %}
     {%- endblock body %}

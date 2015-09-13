@@ -13,8 +13,12 @@
     <div class="author-info col-md-12">
         <span class="author">作者：{{ post.author.username }}</span>
         <span class="time">发布于：{{ moment(post.timestamp).format('LLL') }}</span>
-        <span class="time">上次编辑：{{ moment(post.last_modified).format('LLL') }}</span>
     </div>
+        <div class="tage col-md-12">
+            {% for tag in tags %}
+              <a class="label label-success" href="{{ url_for('.tag_name',tag_name=tag.tag_name) }}">{{tag.tag_name}}</a>
+            {% endfor %}
+        </div>
     </div>
         <div class="clearfix col-md-12">
     <p>  {% if post.body_html %}

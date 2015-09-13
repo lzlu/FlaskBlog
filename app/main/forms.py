@@ -13,6 +13,7 @@ class NameForm(Form):
 
 
 class PostForm(Form):
-    title = StringField("标题", validators=[DataRequired()])
-    body = PageDownField("写点什么", validators=[DataRequired()])
-    submit = SubmitField('Submit')
+    tag = StringField(validators=[DataRequired()])
+    title = StringField(validators=[DataRequired()])
+    body = PageDownField(validators=[DataRequired()])
+    submit = SubmitField('发表')
