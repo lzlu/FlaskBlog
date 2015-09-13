@@ -50,7 +50,9 @@ def delete():
     else:
         current_auther = current_user.get_id()
         post_auther = Post.query.filter_by(id=request.args['id']).first()
-        if post_auther.author_id == int(current_auther):
+        if post_auther.author_id == int(current_auther) or current_user.is_administrator():
+            print("这里的标签啊是%s" % post_auther.getTagByArry())
+            post_auther.delTag(post_auther.getTagByArry())
             db.session.delete(post_auther)
             flash("删除成功!")
         else:
@@ -86,6 +88,7 @@ def sortout():
     for allTag in allTags:
         print("便签名字是%s,有%s个" % (allTag.tag_name, allTag.tag_count))
     return render_template('sortout.html', allTags=allTags)
+
 
 @main.route('/sortout/<string:tag_name>', methods=['GET', 'POST'])
 def tag_name(tag_name):

@@ -158,7 +158,7 @@ class Post(db.Model):
                      author=u)
             db.session.add(p)
             db.session.commit()
-
+    # 增加标签
     def addTag(self, tags):
         if type(tags) != type(set()):
             tags = tags.split(",")
@@ -171,7 +171,7 @@ class Post(db.Model):
                 now_Tag.tag_count += 1
                 self.tags.append(now_Tag)
 
-
+    # 更新标签
     def updateTag(self, data):
         old = self.getTagByArry()
         new_tags = data.split(",")
@@ -179,15 +179,17 @@ class Post(db.Model):
         add_tags = {item for item in new_tags if item not in old}
         print("old=%s,new_tags=%s,del_tage=%s,add_tags=%s" % (old, new_tags, del_tags, add_tags))
         if del_tags is not None:
-            for del_tag in del_tags:
+            self.delTag(del_tags)
+        if add_tags is not None:
+            self.addTag(add_tags)
+    # 删除标签
+    def delTag(self, data):
+        for del_tag in data:
                 remove_tag = Tags.query.filter_by(tag_name=del_tag).first()
                 remove_tag.tag_count -= 1
                 print("remove_tags=%s" % remove_tag.tag_name)
                 if remove_tag is not None:
                     self.tags.remove(remove_tag)
-        if add_tags is not None:
-            self.addTag(add_tags)
-
 
     def getTagByArry(self):
         tags = self.tags.all()
