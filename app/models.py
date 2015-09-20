@@ -136,7 +136,7 @@ class Post(db.Model):
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
         alowed_tages = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em',
-                        'i', 'li', 'ol', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'p']
+                        'i', 'li', 'ol', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'p','div']
         target.body_html = bleach.linkify(bleach.clean(markdown(value, output_format='html'),
                                                        tags=alowed_tages, strip=True))
         target.body_slug = target.body_html[:200]

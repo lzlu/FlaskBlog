@@ -1,0 +1,8 @@
+{% for post in posts %}
+<div class="content">
+            <div class="content-time"><span>{{ moment(post.timestamp).format('LL') }}</span></div>
+            <div class="content-title"><a href="{{ url_for('main.post',id=post.id) }}">{{ post.title }}</a></div>
+            <div class="content-body"><p>{{ post.body_slug|safe}}</p></div>
+            <div class="content-btn"><a class="btn" href="{{ url_for('main.post',id=post.id) }}">--剩余部分--</a></div>
+</div>
+{% endfor %}

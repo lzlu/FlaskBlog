@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 from flask.ext.pagedown.fields import PageDownField
 from flask.ext.wtf import Form
+from flask.ext.wtf.file import FileRequired, FileAllowed, FileField
 from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired
 
@@ -13,7 +14,14 @@ class NameForm(Form):
 
 
 class PostForm(Form):
-    tag = StringField(validators=[DataRequired()])
     title = StringField(validators=[DataRequired()])
+    tag = StringField(validators=[DataRequired()])
     body = PageDownField(validators=[DataRequired()])
     submit = SubmitField('发表')
+
+class PhotoForm(Form):
+    photo = FileField("上传图片!", validators=[
+        FileRequired(),
+        FileAllowed(['jpg', 'png'], '只能传jep,png')
+    ])
+    submit = SubmitField('上传')

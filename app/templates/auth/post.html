@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}管理{% endblock %}
+
+{% block page_content %}
+<table class="table">
+    <thead><tr>
+        <td>标题</td>
+        <td>时间</td>
+        <td>标签</td>
+        <td>正文</td>
+        <td>作者</td>
+        <td>编辑</td>
+        <td>删除</td>
+    </tr></thead>
+    <tbody>
+{% for post in posts%}
+<tr>
+    <td>{{post.title[:3]+'...'}}</td>
+    <td>{{moment(post.timestamp).format('LL')}}</td>
+    <td>{{post.getTagByArry()}}</td>
+    <td>{{post.body_slug[:10]+'...'}}</td>
+    <td>{{post.author.username}}</td>
+    <td><a href="{{url_for('auth.edit', id=post.id)}}">编辑</a></td>
+    <td><a href="{{url_for('auth.delete', id=post.id)}}">删除</a></td>
+    </tr>
+ {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+

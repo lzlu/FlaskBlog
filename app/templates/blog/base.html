@@ -1,0 +1,52 @@
+{% block doc -%}
+<!DOCTYPE html>
+<html>
+{%- block html %}
+<head>
+    {%- block metas %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {%- endblock metas %}
+    <title>Don't Panic</title>
+     {%- block styles %}
+    <link rel="shortcut icon" href=" {{url_for('static',filename='img/favicon.ico')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/normalize.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}" />
+   <!-- <link rel="stylesheet/less" href="{{url_for('static',filename='css/index.less ')}}"/>-->
+     {%- endblock styles %}
+    {%- block script %}
+  <!--  <script src="{{url_for('static',filename='js/less.js')}}"></script>-->
+    <script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/moment-with-locales.min.js')}}"></script>
+    {%- endblock script %}
+</head>
+<body>
+<div class="container">
+    <div id="do-not-panic">
+        {% block navbar %}
+        <header>
+        <div class="title">
+            <h1>Don't Panic<br><small>让我们红尘做伴吃的白白胖胖</small></h1>
+        </div>
+            <nav id="nav">
+               <a href="{{ url_for('main.index') }}" class="current">博客</a>
+               <a href="/">归档</a>
+               <a href="/">关于</a>
+            </nav>
+        </header>
+        {% endblock %}
+        {% block content %}
+        {% include 'blog/_posts.html' %}
+        {% endblock %}
+    </div>
+</div>
+{% block scripts %}
+{{ moment.include_moment() }}
+{{ moment.lang("zh-CN") }}
+{% endblock %}
+</body>
+{%- endblock html %}
+</html>
+{% endblock doc -%}
