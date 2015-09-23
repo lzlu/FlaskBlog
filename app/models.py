@@ -127,7 +127,7 @@ class Post(db.Model):
     last_modified = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     body_html = db.Column(db.Text)
-    body_slug = db.Column(db.String(200))
+    body_slug = db.Column(db.Text)
     tags = db.relationship('Tags',
                            secondary=Post_Tages,
                            backref=db.backref('posts', lazy='dynamic'),
@@ -135,11 +135,18 @@ class Post(db.Model):
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
-        alowed_tages = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em',
-                        'i', 'li', 'ol', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'p','div']
+        tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em',
+                        'i', 'li', 'ol', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'p', 'div', 'img']
+        attrs = {'*': ['class'], 'a': ['href', 'rel'], 'img': ['src', 'alt'],}
+        num = target.body.find("<!--more-->")
+        if num == -1:
+            body_slug_tpl = target.body
+        else:
+            body_slug_tpl = target.body[:num]
         target.body_html = bleach.linkify(bleach.clean(markdown(value, output_format='html'),
-                                                       tags=alowed_tages, strip=True))
-        target.body_slug = target.body_html[:200]
+                                                       tags, attrs, strip=True))
+        target.body_slug = bleach.linkify(bleach.clean(markdown(body_slug_tpl, output_format='html'),
+                                                       tags, attrs, strip=True))
 
     @staticmethod
     def generate_fake(count=100):

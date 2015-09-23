@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import redirect, url_for, render_template, session, request, flash, abort, current_app
 from . import main
 from flask.ext.login import current_user, login_required
-from app import db
+from app import db, qiniu_store
 from .forms import NameForm, PostForm, PhotoForm
 from ..models import User, Role, Permission, Post, Tags
 from werkzeug.utils import secure_filename
@@ -22,13 +22,11 @@ def index():
     return render_template("blog/index.html", posts=posts, pagination=pagination)
 
 
-
 @main.route('/post/<int:id>', methods=['GET', 'POST'])
 def post(id):
     post = Post.query.filter_by(id=id).first()
     tags = post.tags.all()
     return render_template('blog/post.html', post=post, tags=tags)
-
 
 
 @main.route('/sortout', methods=['GET', 'POST'])
@@ -51,8 +49,15 @@ def upload():
     form = PhotoForm()
     if form.validate_on_submit():
         filename = secure_filename(form.photo.data.filename)
+        # 七牛
+        # data = form.photo.data
+        # ret, info = qiniu_store.save(data, filename)
         form.photo.data.save('app/static/uploads/' + filename)
-        flash("上传成功！地址static/uploads/%s" %filename)
+        filenames = '/static/uploads/'+filename
+        flash(filenames)
+        return render_template('blog/upload.html', form=form, filenames=filenames)
     else:
         filename = None
-    return render_template('blog/upload.html', form=form, filename=filename)
+        filenames = None
+    return render_template('blog/upload.html', form=form, filenames=filenames)
+
