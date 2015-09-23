@@ -1,12 +1,13 @@
-{% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
-{% import "_macros.html" as macros %}
-{% block title %}Flasky{% endblock %}
+{% extends "blog/base.html" %}
+{% set active_page = "sortout" %}
+{% block title %}标签{% endblock %}
 
-{% block page_content %}
-{% for allTag in allTags %}
-<a class="btn btn-primary" href="{{ url_for('.tag_name',tag_name=allTag.tag_name) }}">
-  {{ allTag.tag_name }} <span class="badge">{{ allTag.tag_count }}</span>
-</a>
-{% endfor %}
+{% block content %}
+ <div class="sort-out">
+     <ul>
+         {% for tag in allTags %}
+         <li><a href="{{url_for('main.tag_name',tag_name=tag.tag_name)}}">{{ tag.tag_name }}</a></li>
+         {% endfor %}
+     </ul>
+ </div>
 {% endblock %}

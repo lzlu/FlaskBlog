@@ -8,15 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {%- endblock metas %}
-    <title>Don't Panic</title>
+   <title>{% block title %}Don't Panic{% endblock title %}</title>
      {%- block styles %}
     <link rel="shortcut icon" href=" {{url_for('static',filename='img/favicon.ico')}}" />
     <link rel="stylesheet" href="{{url_for('static',filename='css/normalize.css')}}" />
-    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}" />
-  <!--<link rel="stylesheet/less" href="{{url_for('static',filename='css/index.less ')}}"/>-->
+   <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}" />
+ <!-- <link rel="stylesheet/less" href="{{url_for('static',filename='css/index.less ')}}"/>-->
      {%- endblock styles %}
     {%- block script %}
-    <!--<script src="{{url_for('static',filename='js/less.js')}}"></script>-->
+   <!--<script src="{{url_for('static',filename='js/less.js')}}"></script>-->
     <script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
     <script src="{{url_for('static',filename='js/moment-with-locales.min.js')}}"></script>
     {%- endblock script %}
@@ -24,15 +24,24 @@
 <body>
 <div class="container">
     <div id="do-not-panic">
+
         {% block navbar %}
+        {% set navigation_bar = [('/', 'index', '主页'),
+                                 ('/sortout', 'sortout', '标签'),
+                                 ('/about/', 'about', '关于')
+                                ] -%}
+        {% set active_page = active_page|default('index') -%}
         <header>
         <div class="title">
             <h1>Don't Panic<br><small>让我们红尘做伴吃的白白胖胖</small></h1>
         </div>
             <nav id="nav">
-               <a href="{{ url_for('main.index') }}" class="current">博客</a>
-               <a href="/">归档</a>
-               <a href="/">关于</a>
+                {% for href, id, caption in navigation_bar %}
+                <a {% if id == active_page %} class="current"
+                {% endif%} href="{{ href|e }}">
+                    {{ caption|e }}
+                </a>
+                 {% endfor %}
             </nav>
         </header>
 
@@ -44,7 +53,7 @@
 </div>
 {% block scripts %}
 {{ moment.include_moment() }}
-{{ moment.lang("zh-CN") }}
+<!--{{ moment.lang("zh-CN") }}-->
 {% endblock %}
 </body>
 {%- endblock html %}

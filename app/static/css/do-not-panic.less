@@ -43,16 +43,43 @@ html,body{
   }
   .content{
     margin: 3.125em 0 1em;
+    .center{
+     text-align: center;
+    }
   .content-time{
     span{
       color: @theme-date;
     }
+    span{
+        margin: .5em 0;
+        font-size: 1em;
+        color: @theme-date;
+        a{
+          font-size: 1em;
+        color: @theme-date;
+          &:hover{
+            color: @theme-color;
+          }
+        }
+      }
   }
   .content-title{
     a{
       font-size: 2em;
       color: @theme-color;
     }
+    &>span{
+      display: block;
+        font-size: 1em;
+        color: @theme-date;
+        a{
+          font-size: 1em;
+        color: @theme-date;
+          &:hover{
+            color: @theme-color;
+          }
+        }
+      }
   }
   .content-body{
     word-wrap: break-word;
@@ -88,9 +115,10 @@ nav p {
 	margin: 0;
 	}
 
-/* Typography
--------------------------------------------------------- */
-
+img{
+  max-width: 100%;
+  vertical-align: 100%;
+}
 h1 {
 	margin-top: 0;
 	font-weight: normal;
@@ -190,6 +218,51 @@ p#heart{
       color: @theme-color;
     }
   }
+  .sort-out{
+    margin-top: 20px;
+    ul,li{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      width: 100%;
+    }
+    ul{
+      border-left: 8px solid #F5F5F5;
+      li{
+      position: relative;
+      padding-top: 10px;
+      display: inline-block;
+      padding-bottom: 10px;
+      padding-left: 10px;
+      border-bottom: 1px dashed #CCCCCC;
+        &:hover{
+          border-bottom: 1px dashed @theme-color;
+        }
+      a{
+        color: #666;
+      }
+        &:hover a{
+          color: @theme-color;
+        }
+        &:hover:before{
+           background: @theme-color;
+        }
+      &:before{
+        position: absolute;
+        content: " ";
+        left: 0;
+        top: 50%;
+        margin-left: -8px;
+        margin-top: -4px;
+        width: 8px;
+        height: 8px;
+        background: #bbb;
+        border-radius: 50%;
+      }
+      }
+    }
+
+  }
 }
 #nav{
   text-align: center;
@@ -228,7 +301,38 @@ p#heart{
         font-size: 1.5em;
         color: @theme-color;
       }
+      span{
+        display: block;
+        font-size: 0.6em;
+        color: @theme-date;
+        a{
+          font-size: 0.6em;
+        color: @theme-date;
+          &:hover{
+            color: @theme-color;
+          }
+        }
+      }
     }
+      .content-time{
+    &>span{
+      color: @theme-date;
+       display: block;
+    }
+    span{
+
+        margin: .5em 0;
+        font-size: 1em;
+        color: @theme-date;
+        a{
+          font-size: 1em;
+        color: @theme-date;
+          &:hover{
+            color: @theme-color;
+          }
+        }
+      }
+  }
     .content-body{
       word-wrap: break-word;
       word-break: normal;

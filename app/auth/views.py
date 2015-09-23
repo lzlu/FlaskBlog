@@ -1,11 +1,12 @@
 # -*- coding:utf-8 -*-
 from datetime import datetime
-from app.main.forms import PostForm
+from app.main.forms import PostForm, PhotoForm
 from flask import abort
 from flask.ext.login import login_user, login_required, logout_user, current_user
 from app import db
 from ..models import User, Post, Permission
 from .forms import LoginForm, RegistrationForm
+from werkzeug.utils import secure_filename
 
 __author__ = 'lulizhou'
 from flask import render_template, redirect, request, url_for, flash
@@ -108,3 +109,22 @@ def edit(id):
     form.body.data = post.body
     form.tag.data = post.getTagByString()
     return render_template('auth/edit_post.html', form=form)
+
+# 上传图片
+@auth.route('/upload/', methods=('GET', 'POST'))
+@login_required
+def upload():
+    form = PhotoForm()
+    if form.validate_on_submit():
+        filename = secure_filename(form.photo.data.filename)
+        # 七牛
+        # data = form.photo.data
+        # ret, info = qiniu_store.save(data, filename)
+        form.photo.data.save('app/static/uploads/' + filename)
+        filenames = '/static/uploads/'+filename
+        flash(filenames)
+        return render_template('blog/upload.html', form=form, filenames=filenames)
+    else:
+        filename = None
+        filenames = None
+    return render_template('blog/upload.html', form=form, filenames=filenames)

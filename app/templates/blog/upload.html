@@ -3,7 +3,9 @@
 {% block title %}Flasky{% endblock %}
 
 {% block page_content %}
+{% if filenames %}
 <img src="{{ filenames |safe }}">
+{% endif %}
 <div class="form-inint flask-login" style="padding: 10px">
     {{ wtf.quick_form(form) }}
 </div>
