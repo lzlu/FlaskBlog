@@ -89,7 +89,7 @@ def delete(id):
 
 
 # 编辑用户发布的文章
-@auth.route('post/edit?<int:id>', methods=['GET', 'POST'])
+@auth.route('/post/edit?<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
     post = Post.query.get_or_404(id)
@@ -111,7 +111,7 @@ def edit(id):
     return render_template('auth/edit_post.html', form=form)
 
 # 上传图片
-@auth.route('/upload/', methods=('GET', 'POST'))
+@auth.route('/post/upload', methods=('GET', 'POST'))
 @login_required
 def upload():
     form = PhotoForm()
