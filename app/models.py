@@ -4,7 +4,7 @@ import bleach
 from flask.ext.login import UserMixin, AnonymousUserMixin
 from markdown import markdown
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db
+from app import db, logger
 from . import login_manager
 from flask import current_app
 
@@ -174,9 +174,11 @@ class Post(db.Model):
 
             if not now_Tag:
                 self.tags.append(Tags(tag_name=tag, tag_count=1))
+                logger.info("addTag-{}".format(tag))
             else:
                 now_Tag.tag_count += 1
                 self.tags.append(now_Tag)
+                logger.info("addTag-{}".format(tag))
 
     # 更新标签
     def updateTag(self, data):
@@ -184,7 +186,6 @@ class Post(db.Model):
         new_tags = data.split(",")
         del_tags = {item for item in old if item not in new_tags}
         add_tags = {item for item in new_tags if item not in old}
-        print("old=%s,new_tags=%s,del_tage=%s,add_tags=%s" % (old, new_tags, del_tags, add_tags))
         if del_tags is not None:
             self.delTag(del_tags)
         if add_tags is not None:
@@ -194,7 +195,7 @@ class Post(db.Model):
         for del_tag in data:
                 remove_tag = Tags.query.filter_by(tag_name=del_tag).first()
                 remove_tag.tag_count -= 1
-                print("remove_tags=%s" % remove_tag.tag_name)
+                logger.info("remove_tags=%s" % remove_tag.tag_name)
                 if remove_tag is not None:
                     self.tags.remove(remove_tag)
 

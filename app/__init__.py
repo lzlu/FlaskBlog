@@ -7,6 +7,7 @@ from flask.ext.pagedown import PageDown
 from flask.ext.qiniustorage import Qiniu
 from flask.ext.sqlalchemy import SQLAlchemy
 from config import config
+from .utils import create_logger
 
 __author__ = 'lulizhou'
 bootstrap = Bootstrap()
@@ -17,7 +18,7 @@ pagedown = PageDown()
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
-
+logger = create_logger()
 
 def create_app(config_name):
     app = Flask(__name__)

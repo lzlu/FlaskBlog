@@ -12,11 +12,11 @@
      {%- block styles %}
     <link rel="shortcut icon" href=" {{url_for('static',filename='img/favicon.ico')}}" />
     <link rel="stylesheet" href="{{url_for('static',filename='css/normalize.css')}}" />
-   <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}" />
- <!-- <link rel="stylesheet/less" href="{{url_for('static',filename='css/index.less ')}}"/>-->
+   <!--<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}" />-->
+ <link rel="stylesheet/less" href="{{url_for('static',filename='css/index.less ')}}"/>
      {%- endblock styles %}
     {%- block script %}
-   <!--<script src="{{url_for('static',filename='js/less.js')}}"></script>-->
+   <script src="{{url_for('static',filename='js/less.js')}}"></script>
     <script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
     <script src="{{url_for('static',filename='js/moment-with-locales.min.js')}}"></script>
     {%- endblock script %}
@@ -37,8 +37,8 @@
         </div>
             <nav id="nav">
                 {% for href, id, caption in navigation_bar %}
-                <a {% if id == active_page %} class="current"
-                {% endif%} href="{{ href|e }}">
+                <a {% if id == active_page %} class="current btn-default"
+                {% endif%} href="{{ href|e }}" class="btn-default">
                     {{ caption|e }}
                 </a>
                  {% endfor %}

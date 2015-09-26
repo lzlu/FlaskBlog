@@ -1,9 +1,12 @@
 # -*- coding:utf-8 -*-
 from datetime import datetime
+import os
+from app.auth.utils import mkdirbydate, mkdir
 from app.main.forms import PostForm, PhotoForm
 from flask import abort
 from flask.ext.login import login_user, login_required, logout_user, current_user
 from app import db
+from manage import app
 from ..models import User, Post, Permission
 from .forms import LoginForm, RegistrationForm
 from werkzeug.utils import secure_filename
@@ -110,6 +113,7 @@ def edit(id):
     form.tag.data = post.getTagByString()
     return render_template('auth/edit_post.html', form=form)
 
+
 # 上传图片
 @auth.route('/post/upload', methods=('GET', 'POST'))
 @login_required
@@ -120,8 +124,11 @@ def upload():
         # 七牛
         # data = form.photo.data
         # ret, info = qiniu_store.save(data, filename)
-        form.photo.data.save('app/static/uploads/' + filename)
-        filenames = '/static/uploads/'+filename
+        upload_url = mkdir(app.config['UPLOADDIR'])
+        picture_path = mkdirbydate(upload_url)
+        save_path = os.path.join(picture_path[0], filename)
+        filenames = "/static/uploads/"+picture_path[1]+"/"+filename
+        form.photo.data.save(save_path)
         flash(filenames)
         return render_template('blog/upload.html', form=form, filenames=filenames)
     else:

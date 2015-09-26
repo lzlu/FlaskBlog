@@ -13,4 +13,9 @@
              </span></div>
             <div class="content-body"><p>{{ post.body_html |safe}}</p></div>
         </div>
+<div class="showbtn clearfix"><span class="btn-default">评论</span></div>
+{% block comment%}
+ {% include 'blog/duoshuo.html' %}
+{% endblock %}
+ <script src="{{url_for('static',filename='js/app4animate.js')}}"></script>
 {% endblock %}
