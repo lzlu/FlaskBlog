@@ -11,5 +11,4 @@
                  $('.ds-thread').slideToggle();
             }
         });
-      $('.ds-thread').attr("data-url", window.location.href);
   })
