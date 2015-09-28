@@ -2,6 +2,7 @@
  * Created by lulizhou on 2015/9/5.
  */
   $(function(){
+
         $('.showbtn>span').bind({
             pan:function(){
                 $('.ds-thread').slideToggle();

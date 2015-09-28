@@ -84,7 +84,6 @@ class User(UserMixin, db.Model):
 
 
     def can(self, permissions):
-        print(self.role.name)
         return self.role is not None and (self.role.permissions & permissions) == permissions
 
     # 判断是否有admin权限
@@ -138,11 +137,11 @@ class Post(db.Model):
         tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em',
                 'i', 'li', 'ol', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'p', 'div', 'img']
         attrs = {'*': ['class'], 'a': ['href', 'rel'], 'img': ['src', 'alt'], }
-        num = target.body.find("<!--more-->")
+        num = value.find("<!--more-->")
         if num == -1:
-            body_slug_tpl = target.body
+            body_slug_tpl = value
         else:
-            body_slug_tpl = target.body[:num]
+            body_slug_tpl = value[:num]
         target.body_html = bleach.linkify(bleach.clean(markdown(value, output_format='html'),
                                                        tags, attrs, strip=True))
         target.body_slug = bleach.linkify(bleach.clean(markdown(body_slug_tpl, output_format='html'),
