@@ -3,10 +3,9 @@ from datetime import datetime
 import os
 from app.auth.utils import mkdirbydate, mkdir
 from app.main.forms import PostForm, PhotoForm
-from flask import abort
+from flask import abort, current_app
 from flask.ext.login import login_user, login_required, logout_user, current_user
 from app import db
-from manage import app
 from ..models import User, Post, Permission, ImgDir
 from .forms import LoginForm, RegistrationForm
 from werkzeug.utils import secure_filename
@@ -124,7 +123,7 @@ def upload():
         # 七牛
         # data = form.photo.data
         # ret, info = qiniu_store.save(data, filename)
-        upload_url = mkdir(app.config['UPLOADDIR'])
+        upload_url = mkdir(current_app.config['UPLOADDIR'])
         picture_path = mkdirbydate(upload_url)
         save_path = os.path.join(picture_path[0], safe_filename)
         img_url = "/static/uploads/"+picture_path[1]+"/"+safe_filename
@@ -139,13 +138,13 @@ def upload():
 @login_required
 def img_del(id):
     imgdir = ImgDir.query.get_or_404(id)
-    appdir = mkdir(app.config['APPDIR'])
+    appdir = mkdir(current_app.config['APPDIR'])
     img_url = os.path.join(appdir, imgdir.img_dir)
     if os.path.exists(img_url):
         os.remove(img_url)
         db.session.delete(imgdir)
         flash("删除成功!")
     else:
-        flash("图片不存在!")
+        flash("图片不存在!%s"%appdir)
     return redirect(url_for('auth.upload'))
 
