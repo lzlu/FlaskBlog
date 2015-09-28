@@ -22,6 +22,6 @@ class PostForm(Form):
 class PhotoForm(Form):
     photo = FileField("上传图片!", validators=[
         FileRequired(),
-        FileAllowed(['jpg', 'png'], '只能传jep,png')
+        FileAllowed(['jpg', 'png', 'gif'], '只能传jpg,png,gif')
     ])
     submit = SubmitField('上传')

@@ -9,7 +9,6 @@ __author__ = 'lulizhou'
 def mkdir(dir):
     if not os.path.exists(dir):
         os.makedirs(dir)
-        print("路径被添加")
         logger.info('create dir {}'.format(dir))
     return dir
 

@@ -6,3 +6,11 @@
             $(this).addClass("current");
         $('.ds-thread').show().animate({"opacity":1},1000);
     })})
+
+$(function(){
+    $('.grid').masonry({
+  // options
+  itemSelector: '.grid-item',
+  columnWidth: '.grid-item'
+});
+})

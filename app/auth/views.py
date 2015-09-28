@@ -7,7 +7,7 @@ from flask import abort
 from flask.ext.login import login_user, login_required, logout_user, current_user
 from app import db
 from manage import app
-from ..models import User, Post, Permission
+from ..models import User, Post, Permission, ImgDir
 from .forms import LoginForm, RegistrationForm
 from werkzeug.utils import secure_filename
 
@@ -120,18 +120,32 @@ def edit(id):
 def upload():
     form = PhotoForm()
     if form.validate_on_submit():
-        filename = secure_filename(form.photo.data.filename)
+        safe_filename = secure_filename(form.photo.data.filename)
         # 七牛
         # data = form.photo.data
         # ret, info = qiniu_store.save(data, filename)
         upload_url = mkdir(app.config['UPLOADDIR'])
         picture_path = mkdirbydate(upload_url)
-        save_path = os.path.join(picture_path[0], filename)
-        filenames = "/static/uploads/"+picture_path[1]+"/"+filename
+        save_path = os.path.join(picture_path[0], safe_filename)
+        img_url = "/static/uploads/"+picture_path[1]+"/"+safe_filename
+
         form.photo.data.save(save_path)
-        flash(filenames)
-        return render_template('blog/upload.html', form=form, filenames=filenames)
+        if not ImgDir.query.filter_by(img_dir=img_url).first():
+            db.session.add(ImgDir(img_dir=img_url))
+    filenames = ImgDir.query.order_by(ImgDir.add_time.desc()).all()
+    return render_template('auth/upload.html', form=form, filenames=filenames)
+
+@auth.route('/post/upload/delete?<int:id>', methods=('GET', 'POST'))
+@login_required
+def img_del(id):
+    imgdir = ImgDir.query.get_or_404(id)
+    appdir = mkdir(app.config['APPDIR'])
+    img_url = os.path.join(appdir, imgdir.img_dir)
+    if os.path.exists(img_url):
+        os.remove(img_url)
+        db.session.delete(imgdir)
+        flash("删除成功!")
     else:
-        filename = None
-        filenames = None
-    return render_template('blog/upload.html', form=form, filenames=filenames)
+        flash("图片不存在!")
+    return redirect(url_for('auth.upload'))
+

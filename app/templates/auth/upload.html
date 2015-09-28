@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Flasky{% endblock %}
+{% set active_page = "upload" %}
+{% block page_content %}
+
+<div class="form-inint flask-login" style="padding: 10px">
+    {{ wtf.quick_form(form) }}
+</div>
+{% if filenames %}
+<div class="row grid">
+{% for filename in filenames %}
+
+  <div class="col-xs-6 col-md-3 grid-item">
+    <div class="thumbnail">
+      <img src="{{ filename.img_dir |safe }}">
+        <div class="caption">
+        <p><pre><code>{{ filename.img_dir |safe }}</code></pre></p>
+        <p><a href="{{ filename.img_dir |safe }}" class="btn btn-primary" role="button">查看大图</a>
+        <a href="{{ url_for('auth.img_del',id=filename.id) }}" class="btn btn-danger" role="button">删除</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+{% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

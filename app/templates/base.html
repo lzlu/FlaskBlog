@@ -2,7 +2,13 @@
 
 {% block title %}控制台{% endblock %}
 
+
 {% block navbar %}
+{% set navigation_bar = [( url_for("auth.add_post") , 'add', '新增'),
+                                 ( url_for("auth.post") , 'manage', '管理'),
+                                 (url_for("auth.upload") , 'upload', '图片')
+                                ] -%}
+{% set active_page = active_page|default('add') -%}
     <div class="navbar navbar-default" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -12,9 +18,11 @@
           <a class="navbar-brand" href="{{ url_for('main.index') }}" id="navbar-brand">Don't Panic</a>
         </div>
         <div class="navbar-collapse collapse">
+
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{{ url_for('auth.add_post') }}">新增</a></li>
-            <li><a href="{{ url_for('auth.post') }}">管理</a></li>
+              {% for href, id, caption in navigation_bar %}
+            <li {% if id == active_page %}class="active" {% endif %}><a href="{{ href|e }}">{{caption}}</a></li>
+            {% endfor %}
           </ul>
           <ul class="nav navbar-nav navbar-right">
          {% if current_user.is_authenticated() %}

@@ -136,8 +136,8 @@ class Post(db.Model):
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
         tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em',
-                        'i', 'li', 'ol', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'p', 'div', 'img']
-        attrs = {'*': ['class'], 'a': ['href', 'rel'], 'img': ['src', 'alt'],}
+                'i', 'li', 'ol', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'p', 'div', 'img']
+        attrs = {'*': ['class'], 'a': ['href', 'rel'], 'img': ['src', 'alt'], }
         num = target.body.find("<!--more-->")
         if num == -1:
             body_slug_tpl = target.body
@@ -165,6 +165,7 @@ class Post(db.Model):
                      author=u)
             db.session.add(p)
             db.session.commit()
+
     # 增加标签
     def addTag(self, tags):
         if type(tags) != type(set()):
@@ -190,14 +191,15 @@ class Post(db.Model):
             self.delTag(del_tags)
         if add_tags is not None:
             self.addTag(add_tags)
+
     # 删除标签
     def delTag(self, data):
         for del_tag in data:
-                remove_tag = Tags.query.filter_by(tag_name=del_tag).first()
-                remove_tag.tag_count -= 1
-                logger.info("remove_tags=%s" % remove_tag.tag_name)
-                if remove_tag is not None:
-                    self.tags.remove(remove_tag)
+            remove_tag = Tags.query.filter_by(tag_name=del_tag).first()
+            remove_tag.tag_count -= 1
+            logger.info("remove_tags=%s" % remove_tag.tag_name)
+            if remove_tag is not None:
+                self.tags.remove(remove_tag)
 
     def getTagByArry(self):
         tags = self.tags.all()
@@ -216,3 +218,10 @@ class Tags(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(64), index=True)
     tag_count = db.Column(db.Integer, default=0)
+
+
+class ImgDir(db.Model):
+    __tablename__ = 'imgdir'
+    id = db.Column(db.Integer, primary_key=True)
+    img_dir = db.Column(db.String(200), index=True)
+    add_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
