@@ -2,15 +2,13 @@
  * Created by lulizhou on 2015/9/5.
  */
   $(function(){
-        $('.showbtn>span').click(function(){
-            $(this).addClass("current");
-        $('.ds-thread').show().animate({"opacity":1},1000);
-    })})
-
-$(function(){
-    $('.grid').masonry({
-  // options
-  itemSelector: '.grid-item',
-  columnWidth: '.grid-item'
-});
-})
+        $('.showbtn>span').bind({
+            pan:function(){
+                $('.ds-thread').slideToggle();
+                },
+            click:function(){
+                 $('.ds-thread').slideToggle();
+            }
+        });
+      $('.ds-thread').attr("data-url", window.location.href);
+  })

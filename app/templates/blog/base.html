@@ -17,7 +17,8 @@
      {%- endblock styles %}
     {%- block script %}
    <script src="{{url_for('static',filename='js/less.js')}}"></script>
-    <script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/jquery-2.1.4.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/hammer.min.js')}}"></script>
     <script src="{{url_for('static',filename='js/moment-with-locales.min.js')}}"></script>
     {%- endblock script %}
 </head>
@@ -28,7 +29,7 @@
         {% block navbar %}
         {% set navigation_bar = [('/', 'index', '主页'),
                                  ('/sortout', 'sortout', '标签'),
-                                 ('/about/', 'about', '关于')
+                                 ('/about', 'about', '关于')
                                 ] -%}
         {% set active_page = active_page|default('index') -%}
         <header>
@@ -46,11 +47,17 @@
         </header>
 
         {% endblock %}
+        {% block error_page%}
+        {%  endblock %}
         {% block content %}
         {% include 'blog/_posts.html' %}
         {% endblock %}
     </div>
+    <footer id="foot-index" class="clearfix">
+    <div class="foot"><p>Powered by <a href="http://flask.pocoo.org/">Flask</a> </p></div>
+    </footer>
 </div>
+
 {% block scripts %}
 {{ moment.include_moment() }}
 <!--{{ moment.lang("zh-CN") }}-->

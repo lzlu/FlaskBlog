@@ -15,8 +15,8 @@
     <div class="thumbnail">
       <img src="{{url_for('static',filename='uploads/'+ filename.img_dir |safe )}}">
         <div class="caption">
-        <p><pre><code>{{ filename.img_dir |safe }}</code></pre></p>
-        <p><a href="{{ filename.img_dir |safe }}" class="btn btn-primary" role="button">查看大图</a>
+        <p><pre><code>{{url_for('static',filename='uploads/'+ filename.img_dir |safe )}}</code></pre></p>
+        <p><a href="{{url_for('static',filename='uploads/'+ filename.img_dir |safe )}}" class="btn btn-primary" role="button">查看大图</a>
         <a href="{{ url_for('auth.img_del',id=filename.id) }}" class="btn btn-danger" role="button">删除</a>
         </p>
       </div>

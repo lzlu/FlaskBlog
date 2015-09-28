@@ -44,5 +44,7 @@ def tag_name(tag_name):
     return render_template("blog/sortout_index.html", posts=posts)
 
 
-
+@main.route('/about', methods=['GET', 'POST'])
+def about():
+    return render_template("blog/about.html")
 
