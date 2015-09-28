@@ -126,25 +126,25 @@ def upload():
         upload_url = mkdir(current_app.config['UPLOADDIR'])
         picture_path = mkdirbydate(upload_url)
         save_path = os.path.join(picture_path[0], safe_filename)
-        img_url = "/static/uploads/"+picture_path[1]+"/"+safe_filename
-
+        img_url = os.path.join(picture_path[1], safe_filename)
         form.photo.data.save(save_path)
         if not ImgDir.query.filter_by(img_dir=img_url).first():
             db.session.add(ImgDir(img_dir=img_url))
     filenames = ImgDir.query.order_by(ImgDir.add_time.desc()).all()
     return render_template('auth/upload.html', form=form, filenames=filenames)
 
+
 @auth.route('/post/upload/delete?<int:id>', methods=('GET', 'POST'))
 @login_required
 def img_del(id):
     imgdir = ImgDir.query.get_or_404(id)
-    appdir = mkdir(current_app.config['APPDIR'])
-    img_url = os.path.join(appdir, imgdir.img_dir)
+    uploadsdir = mkdir(current_app.config['UPLOADDIR'])
+    img_url = os.path.join(uploadsdir, imgdir.img_dir)
     if os.path.exists(img_url):
         os.remove(img_url)
         db.session.delete(imgdir)
         flash("删除成功!")
     else:
-        flash("图片不存在!%s"%appdir)
+        flash("图片不存在!%s\n%s\n%s" % (imgdir.img_dir, appdir, img_url))
     return redirect(url_for('auth.upload'))
 
