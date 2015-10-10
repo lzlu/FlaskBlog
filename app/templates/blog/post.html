@@ -6,7 +6,8 @@
             <div class="content-title center"><a href="#">{{ post.title }}</a></div>
              <div class="content-time center">
                  <span>发布于{{ moment(post.timestamp).format('LLL') }}</span>
-             <span>分类于
+                 <span>最近更新{{ moment(post.last_modified).format('LLL') }}</span>
+                 <span>分类于
                  {% for tag in post.getTagByArry() %}
                  <a href="{{url_for('main.tag_name',tag_name=tag)}}">{{tag}}</a>
                     {% endfor %}
