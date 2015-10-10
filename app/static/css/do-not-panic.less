@@ -61,7 +61,7 @@ html,body{
     }
   }
   .content{
-    margin: 3.125em 0 1em;
+    margin: 3.125em 0;
     .center{
      text-align: center;
     }
@@ -86,6 +86,9 @@ html,body{
     a{
       font-size: 2em;
       color: @theme-color;
+      &:hover{
+          color: @theme-hover-color;
+        }
     }
     &>span{
       display: block;
@@ -249,16 +252,18 @@ p#heart{
       border-left: 8px solid #F5F5F5;
       li{
       position: relative;
-      padding-top: 10px;
+      padding-top: 30px;
       display: inline-block;
       padding-bottom: 10px;
       padding-left: 10px;
       border-bottom: 1px dashed #CCCCCC;
+      transition:all 1s;
         &:hover{
           border-bottom: 1px dashed @theme-color;
         }
       a{
         color: #666;
+        transition:all 1s;
       }
         &:hover a{
           color: @theme-color;
@@ -266,21 +271,44 @@ p#heart{
         &:hover:before{
            background: @theme-color;
         }
-      &:before{
-        position: absolute;
-        content: " ";
-        left: 0;
-        top: 50%;
-        margin-left: -8px;
-        margin-top: -4px;
-        width: 8px;
-        height: 8px;
-        background: #bbb;
-        border-radius: 50%;
+        &:before{
+          position: absolute;
+          top: 50%;
+          margin-top: -4+10px;
+          left: -10+2px;
+          content: " ";
+          width: 8px;
+          height: 8px;
+          background: #bbb;
+          border-radius: 50%;
+          transition:all 1s;
       }
       }
     }
-
+  .year{
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border: 0 none;
+    margin: 10px 0;
+    a{
+      font-size: 2em;
+    }
+    &:hover{
+      border: 0 none;
+    }
+    &:before{
+          position: absolute;
+          top: 50%;
+          margin-top: -16+10px;
+          left: -10+2px;
+          content: " ";
+          width: 8px;
+          height: 8px;
+          background: #bbb;
+          border-radius: 50%;
+          transition:all 1s;
+      }
+  }
   }
 }
 #nav{
@@ -298,6 +326,7 @@ p#heart{
       a{
         font-size: 1.5em;
         color: @theme-color;
+
       }
       span{
         display: block;
@@ -374,13 +403,56 @@ p#heart{
     width: 100%;
     text-align: center;
     p{
-      color: @theme-date;
+      color: #222;
       margin: 0;
       padding-top:1em;
       a{
-        text-decoration: none;
-        color: @theme-date;
+        color: #666;
       }
     }
   }
+}
+#paginations{
+  ul,li{
+    margin: 0;
+    padding: 0;
+  }
+  li{
+    display: inline-block;
+    margin:0  .1em;
+    a{
+      display: inline-block;
+      border: 1px solid #ddd;
+      cursor: pointer;
+      padding: .6em .8em;
+      color: @theme-date;
+
+    }
+    transition: all .2s;
+    &:hover{
+        .active
+      }
+
+  }
+.active{
+       border-bottom: 2px solid @theme-color;
+  a{
+    color: #333;
+  }
+    }
+}
+@media screen and (max-width: 750px){
+  #paginations{
+    li{
+      margin: 0;
+      a{
+        font-size: .2em;
+      }
+    }
+  }
+}
+
+.nomore{
+  text-align: center;
+  color: @theme-date;
 }

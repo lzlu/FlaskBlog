@@ -147,4 +147,3 @@ def img_del(id):
     else:
         flash("图片不存在!%s\n%s\n%s" % (imgdir.img_dir, appdir, img_url))
     return redirect(url_for('auth.upload'))
-
