@@ -1,4 +1,5 @@
 {% macro pagination_widget(pagination, endpoint) %}
+{% if pagination.pages>1 %}
 <ul class="pagination">
     {% if pagination.has_prev %}
     <li>
@@ -30,4 +31,5 @@
     </li>
     {% endif %}
 </ul>
+{% endif %}
 {% endmacro %}
