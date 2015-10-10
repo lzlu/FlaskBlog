@@ -1,13 +1,11 @@
 {% extends "blog/base.html" %}
-{% set active_page = "sortout" %}
-{% block title %}标签{% endblock %}
+{% set active_page = "archives" %}
+{% block title %}分类{% endblock %}
 
-{% block content %}
+{% block page_content %}
  <div class="sort-out">
-     <ul>
-         {% for tag in allTags %}
-         <li><a href="{{url_for('main.tag_name',tag_name=tag.tag_name)}}">{{ tag.tag_name }}</a></li>
-         {% endfor %}
+     <ul id="sort">
      </ul>
  </div>
+  <script src="{{url_for('static',filename='js/app.js')}}"></script>
 {% endblock %}

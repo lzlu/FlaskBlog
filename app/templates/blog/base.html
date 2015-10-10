@@ -12,16 +12,14 @@
      {%- block styles %}
     <link rel="shortcut icon" href=" {{url_for('static',filename='img/favicon.ico')}}" />
     <link rel="stylesheet" href="{{url_for('static',filename='css/normalize.css')}}" />
-   <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}" />
-<!-- <link rel="stylesheet/less" href="{{url_for('static',filename='css/index.less ')}}"/>-->
+   <!--<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}" />-->
+ <link rel="stylesheet/less" href="{{url_for('static',filename='css/index.less ')}}"/>
      {%- endblock styles %}
     {%- block script %}
-   <!--<script src="{{url_for('static',filename='js/less.js')}}"></script>-->
+   <script src="{{url_for('static',filename='js/less.js')}}"></script>
     <script src="{{url_for('static',filename='js/jquery-2.1.4.min.js')}}"></script>
     <script src="{{url_for('static',filename='js/hammer.min.js')}}"></script>
     <script src="{{url_for('static',filename='js/moment-with-locales.min.js')}}"></script>
-    <script>var duoshuoQuery = {short_name:"flaskblog123"};</script>
-    <script src="http://static.duoshuo.com/embed.js"></script>
     {%- endblock script %}
 </head>
 <body>
@@ -30,13 +28,13 @@
 
         {% block navbar %}
         {% set navigation_bar = [('/', 'index', '主页'),
-                                 ('/sortout', 'sortout', '标签'),
+                                 ('/archives', 'archives', '分类'),
                                  ('/about', 'about', '关于')
                                 ] -%}
         {% set active_page = active_page|default('index') -%}
         <header>
         <div class="title">
-            <h1>Don't Panic<br><small>让我们红尘做伴吃的白白胖胖</small></h1>
+            <h1>Don't be evil<br><small>让我们红尘做伴吃的白白胖胖</small></h1>
         </div>
             <nav id="nav">
                 {% for href, id, caption in navigation_bar %}
@@ -51,8 +49,7 @@
         {% endblock %}
         {% block error_page%}
         {%  endblock %}
-        {% block content %}
-        {% include 'blog/_posts.html' %}
+        {% block page_content %}
         {% endblock %}
     </div>
     <footer id="foot-index" class="clearfix">
@@ -62,7 +59,7 @@
 
 {% block scripts %}
 {{ moment.include_moment() }}
-<!--{{ moment.lang("zh-CN") }}-->
+{{ moment.lang("zh-CN") }}
 {% endblock %}
 </body>
 {%- endblock html %}

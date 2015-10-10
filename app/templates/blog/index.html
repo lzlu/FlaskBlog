@@ -6,10 +6,8 @@
 
 {% include 'blog/_posts.html' %}
 {% if pagination %}
-<div class="container" style="text-align: center">
-<div class="pagination">
+<div class="container" style="text-align: center" id="paginations">
     {{ macros.pagination_widget(pagination, '.index') }}
 </div>
-    </div>
 {% endif %}
 {% endblock %}

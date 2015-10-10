@@ -6,7 +6,7 @@ from markdown import markdown
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, logger
 from . import login_manager
-from flask import current_app
+from flask import current_app, url_for
 
 __author__ = 'lulizhou'
 
@@ -147,6 +147,17 @@ class Post(db.Model):
         target.body_slug = bleach.linkify(bleach.clean(markdown(body_slug_tpl, output_format='html'),
                                                        tags, attrs, strip=True))
 
+    # to_json4archives
+    def to_json4archives(self):
+        json_post = {
+            'url': url_for('main.post', id=self.id, _external=True),
+            'year': self.timestamp.strftime('%Y'),
+            'date': self.timestamp.strftime('%m-%d'),
+            'title': self.title
+        }
+        return json_post
+
+
     @staticmethod
     def generate_fake(count=100):
         from random import seed, randint
@@ -164,6 +175,12 @@ class Post(db.Model):
                      author=u)
             db.session.add(p)
             db.session.commit()
+
+
+    # 返回文章年份
+    def get_post_year(self):
+        return datetime.fromtimestamp(self.timestamp).strftime('%Y')
+
 
     # 增加标签
     def addTag(self, tags):
