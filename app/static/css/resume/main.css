@@ -1,0 +1,279 @@
+*{
+	color: #fff;
+}
+body{
+	  font-size: 16px;
+	  font-family: 'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+.clear_fix:after{
+		clear: both;
+		display: block;
+		visibility: hidden;
+		height: 0;
+		line-height: 0;
+		content: "";
+	}
+section{
+	width: 100%;
+	min-height: 700px;
+	position: relative;
+}
+/* 各section颜色 */
+.banner{
+	background: #1bbc9b;
+
+}
+.about{
+	background-color: #1889C5;
+}
+.skill{
+	background-color: #9C58B6;
+}
+.work{
+	background: #364B5F;
+}
+.contact{
+	background: #E74D3D;
+}
+
+/* button */
+h4{
+	text-align: center;
+}
+.download{
+	text-align: center;
+}
+.download a{
+	display: inline-block;
+	border: 2px solid #fff;
+	font-size: 16px;
+	padding: 15px;
+	color:#fff;
+	text-align: center;
+}
+.download a:hover{
+	color: #1bbc9b;
+	background:#fff;
+}
+/* banner */
+
+
+.scroll i{
+	width:48px;
+	height: 48px; 
+	position: absolute;
+	left: 50%;
+	margin-left: -24px;
+	bottom: 10px;
+	background:url(../../img/resume/bwn.png) no-repeat center center;
+	cursor: pointer;
+}
+.bottom i{
+	background: url(../../img/resume/bwnup.png) no-repeat center center;
+}
+section .photo{
+	display: block;
+	width: 200px;
+	height: 200px;
+	border-radius: 200px;
+	border:10px solid #aee2d9;
+	overflow: hidden;
+	background:#fff url(../../img/resume/Image.png) no-repeat center center;
+	background-size: 200px 200px;
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	margin: -110px 0 0  -110px;
+}
+section .name{
+	text-align: center;
+	font-size: 5em;
+	text-shadow: 1px 2px #22c3aa,2px 4px #aee2d9;
+	padding-top: 25%
+}
+.banner .job{
+	font-size: 2em;
+	text-align: center;
+	margin: 40px 0;
+}
+/* menu */
+.menu{
+	position: absolute;
+	width: 100%;
+	height: 52px;
+	z-index: 70;
+	background: #000;
+	opacity: 0.6;
+	top:700px;
+	left: 0;
+}
+
+
+#menu{
+	position: absolute;
+	width: 100%;
+	height: 52px;
+	z-index: 70;
+	background: #222;
+	top:700px;
+	left: 0;
+}
+#menu .logo {
+	margin-left: 12%;
+	width: 200px;
+	height: 100%;
+	float: left;
+	cursor: pointer;
+}
+#menu ul{
+	width: 40%;
+	height: 100%;
+	margin-left: 60%;
+}
+#menu ul li{
+	display: inline-block;
+	float: left;
+	margin: 0 8% 0 0;
+}
+#menu ul li a{
+	font-size: 14px;
+	line-height:52px;
+}
+#menu .logo a{
+	font-size: 1.9em;
+	line-height:52px;
+}
+#menu a:hover{
+	  color: #999;
+}
+/* about */
+
+section>h2{
+  	font-size: 40px;
+ 	margin-top: 2.5em;
+  	margin: 0;
+  	padding: 2em 0 1em 0;
+	text-align: center;
+}
+.intro{
+	width: 1024px;
+	margin: 50px auto 0 auto; 
+}
+.brief{
+	float: left;
+}
+.brief li{
+	padding: 5px;
+}
+.brief li span{
+	display: inline-block;
+	text-align: right;
+	width: 70px;
+}
+.dr{
+	width: 500px;
+	margin-right:5px; 
+	float: right;
+}
+.dr p{
+	margin: 0 0 10px 50px;
+	line-height:26px;
+}
+.about .logo{
+	width: 600px;
+	margin: 0 auto;
+}
+.about .logo li{
+	display: inline-block;
+	width: 81px;
+	height: 81px;
+	margin: 20px  100px;
+}
+.about .logo li a{
+	display:block;
+	width: 81px;
+	height: 81px;
+}
+.about .logo li{
+	text-indent: -9999px;
+}
+.about .logo .github{
+	background: url(../../img/resume/github.png) no-repeat center center;
+}
+.about .logo .blog{
+	background: url(../../img/resume/blog.png) no-repeat center center;
+}
+.link        {-webkit-transition:0.4s linear;transition:0.4s ease-in;}
+.link:hover  {-webkit-transform:rotate(360deg);transform:rotate(360deg);}
+/* skill */
+
+.cirle{
+	width: 1000px;
+	margin: 20px auto 0 auto;
+}
+.example-container{
+		display: inline-block;
+		width: 200px;
+		height:200px;
+		position: relative;
+		margin-left: 45px;
+		}
+.progressbar-text{
+		position: absolute; 
+		top: 50%; left: 50%; 
+		padding: 0px; 
+		margin: 0px; 
+		-webkit-transform: translate(-50%, -50%); 
+		transform: translate(-50%, -50%); 
+		color: rgb(252, 176, 60);
+		font-size: 25px;
+}
+.text{
+	display: block;
+	width: 100%;
+	position: absolute; 
+	bottom: -30%;
+	left: 0;
+	font-size: 26px;
+	text-align: center;
+	color: rgb(252, 176, 60);
+}
+
+/* work */
+
+.webDesign{
+	width: 860px;
+	height: auto;
+	margin: 0 auto;
+	padding-top: 50px;
+}
+.webDesign ul li{
+	width: 100px;
+	height: 100px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	float: left;
+	text-align: center;
+	border-radius: 50px;
+	background: #666;
+	opacity: 0.3;
+}
+.webDesign ul li a{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	border-radius: 50px;
+}
+
+.webDesign ul li  span{
+	line-height: 100px;
+	font-size: 20px;
+}
+/* contact */
+.contact{
+	text-align: center;
+}
+.contact h1{
+	font-size: 2em;
+	padding: 300px 0 20px 0 ;
+}

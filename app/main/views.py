@@ -44,9 +44,10 @@ def tag_name(tag_name):
     return render_template("blog/sortout_index.html", posts=posts)
 
 
+# 简历
 @main.route('/about', methods=['GET', 'POST'])
 def about():
-    return render_template("blog/about.html")
+    return render_template("resume/resume.html")
 
 
 # 归档api
@@ -68,4 +69,3 @@ def get_archives():
         return jsonify({'result': 1, 'posts': [post.to_json4archives() for post in Posts]})
     else:
         return jsonify({'result': 0})
-
