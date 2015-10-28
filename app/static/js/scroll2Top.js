@@ -3,7 +3,7 @@
 
     scroll2Top.prototype={
         init:function(){
-            if(this.nowScroll()>=1000){
+            if(this.nowScroll()>=800){
                 this.dom();
                 this.animate();
             }else if (this.nowScroll()<=200){
@@ -22,7 +22,7 @@
         animate:function(){
             var _this = this;
             $('#go2top').on('click',function(){
-                $('body').animate({'scrollTop':0},function(){
+                $('html,body').animate({'scrollTop':0},function(){
                 _this.remove();
             });
             });

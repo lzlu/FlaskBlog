@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-{% block title %}Don't Panic||{{post.title}}{% endblock %}
+{% block title %}{{post.title}}来自Don't Panic的blog{% endblock %}
 
 {% block page_content %}
  <div class="content">
@@ -14,7 +14,7 @@
              </span></div>
             <div class="content-body"><p>{{ post.body_html |safe}}</p></div>
         </div>
-<div class="showbtn clearfix"><span class="btn-default">评论</span></div>
+<div class="showbtn clearfix"><span class="btn-none">评论</span></div>
 {% block comment%}
  {% include 'blog/duoshuo.html' %}
 {% endblock %}

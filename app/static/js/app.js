@@ -2,8 +2,6 @@
  * Created by lulizhou on 2015/10/9.
  */
 (function($){
-    var $windows=$(window);
-    var $document=$(document);
     function roll2load() {
         this.url = 'get_archives'
         this.id = 'sort'
@@ -38,7 +36,6 @@
             var _this = this;
             if(!data['result']){
                 _this.isEnd=true;
-                $("#"+this.id).append("<p class='nomore'>没有更多了!<p>")
             }
             else {
                  var posts=data['posts'];
@@ -74,4 +71,4 @@
     var roll = new roll2load();
     roll.scollThenSet();
 
-})(jQuery);
+})(jQuery)

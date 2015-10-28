@@ -22,7 +22,7 @@
     <td>{{post.body_slug[:10]+'...'}}</td>
     <td>{{post.author.username}}</td>
     <td><a href="{{url_for('auth.edit', id=post.id)}}">编辑</a></td>
-    <td><a href="{{url_for('auth.delete', id=post.id)}}">删除</a></td>
+    <td><a href="javascript:;" data-href="{{url_for('auth.delete', id=post.id)}}" class="delete">删除</a></td>
     </tr>
  {% endfor %}
     </tbody>
