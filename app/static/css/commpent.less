@@ -1,0 +1,20 @@
+#go2top{
+  position: fixed;
+  bottom: 50px;
+  right: 100px;
+  width: 25px;
+  height: 25px;
+  background: @theme-color;
+  transition: 1s all;
+  cursor:pointer;
+  &:before{
+    display: block;
+    content: '';
+    width: 0;
+    height: 0;
+    border-width: 0 7px 8px 7px;
+    border-color: transparent transparent #fff transparent;
+    border-style: solid;
+    margin: 8.5px auto 0 auto;
+}
+}
