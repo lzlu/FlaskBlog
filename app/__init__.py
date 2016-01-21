@@ -4,7 +4,6 @@ from flask.ext.bootstrap import Bootstrap
 from flask.ext.login import LoginManager
 from flask.ext.moment import Moment
 from flask.ext.pagedown import PageDown
-from flask.ext.qiniustorage import Qiniu
 from flask.ext.sqlalchemy import SQLAlchemy
 from config import config
 from .utils import create_logger
@@ -13,7 +12,6 @@ __author__ = 'lulizhou'
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 moment = Moment()
-qiniu_store = Qiniu()
 pagedown = PageDown()
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -24,7 +22,6 @@ def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
-    qiniu_store.init_app(app)
     moment.init_app(app)
     bootstrap.init_app(app)
     db.init_app(app)

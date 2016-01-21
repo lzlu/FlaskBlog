@@ -3,7 +3,6 @@ from datetime import datetime
 from flask import redirect, url_for, render_template, session, request, flash, abort, current_app, jsonify
 from . import main
 from flask.ext.login import current_user, login_required
-from app import db, qiniu_store
 from .forms import NameForm, PostForm, PhotoForm
 from ..models import User, Role, Permission, Post, Tags
 from werkzeug.utils import secure_filename
